@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Apply Today</title>
+    <link rel="stylesheet" href="index.css" />
+  </head>
+  <body>
+    <div class="header">
+      <img src="jovie-logo.png" alt="" />
+    </div>
+    <div class="body-container">
+      <div class="body">
+        <form id="reg-form" action="#">
+          <div class="form-header">
+            <h1>Application Form</h1>
+          </div>
+          <div class="info">
+            <p>* Indicates a required field</p>
+          </div>
+          <div class="name">
+            <div>
+              <label for="first-name">First Name*</label>
+              <input
+                class="fl-name"
+                type="text"
+                id="first-name"
+                placeholder="Enter your First Name"
+                required
+              />
+            </div>
+            <div>
+              <label for="last-name">Last Name*</label>
+              <input
+                class="fl-name"
+                type="text"
+                id="last-name"
+                placeholder="Enter your Last Name"
+                required
+              />
+            </div>
+          </div>
+          <div class="input-box">
+            <label class="input-box-label" for="email">Email*</label>
+            <input
+              class="input-1"
+              type="email"
+              id="email"
+              placeholder="Enter your personal email address"
+              required
+            />
+          </div>
+          <div>
+            <label class="input-box-label" for="phone">Phone*</label>
+            <input
+              class="input-1"
+              type="tel"
+              id="phone"
+              placeholder="(000) 000-0000"
+              required
+            />
+          </div>
+          <div class="input-box">
+            <label class="input-box-label" for="social-sec-num"
+              >Social Security Number*</label
+            >
+            <input class="input-1" type="text" id="social-sec-num" />
+          </div>
+          <div>
+            <label class="input-box-label" for="gender">Gender</label>
+            <select class="input-2" name="gender" id="gender" required>
+              <option value="male">Please Select</option>
+              <option value="male">Male</option>
+              <option value="male">Female</option>
+              <option value="male">Others</option>
+            </select>
+          </div>
+          <div class="input-box">
+            <label class="input-box-label" for="DOB">Date of birth*</label>
+            <input class="input-1" type="date" id="DOB" required />
+          </div>
+          <div class="liscence">
+            <label class="upload-label" for="front-lisc"
+              >Driver's License/State ID FRONT
+              <span>make sure it is clear</span></label
+            >
+            <div class="upload">
+              <i class="fa-solid fa-upload"></i>
+              <h4>Browse Files</h4>
+              <label class="upload-file-btn" for="front-lisc"
+                >Choose a file</label
+              >
+              <input
+                name="front-card"
+                class="id-card-upload"
+                type="file"
+                id="front-lisc"
+                accept="image/*"
+                required
+              />
+            </div>
+          </div>
+          <div class="liscence">
+            <p class="upload-label">
+              Driver's License/State ID BACK <span>make sure it is clear</span>
+            </p>
+            <div class="upload">
+              <i class="fa-solid fa-upload"></i>
+              <h4>Browse Files</h4>
+              <label class="upload-file-btn" for="back-lisc"
+                >Choose a file</label
+              >
+              <input
+                name="back-card"
+                class="id-card-upload"
+                type="file"
+                id="back-lisc"
+                accept="image/*"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="terms">
+            <input type="checkbox" name="T-and-A" id="agree" />
+            <label for="agree"
+              >I accept jovie's <a href="#">Terms of Service</a> and
+              <a href="#">Privacy Policy</a>*</label
+            >
+          </div>
+
+          <div class="submit">
+            <button id="submit" class="submit-button" type="submit">
+              APPLY NOW
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!--
+       <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+         <script>
+        const { createClient } = supabase;
+  
+        // Create a single supabase client for interacting with your database
+          supabase = createClient(
+          "https://gzfvrprnvcpegkutodgd.supabase.co",
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd6ZnZycHJudmNwZWdrdXRvZGdkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MTIyMjQ4ODksImV4cCI6MjAyNzgwMDg4OX0.riMoeWUsT5pDsZtJkT0lUJaileMRA6UipmCgBphbtJ0"
+        );
+  
+        const form = document.getElementById("reg-form");
+
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const formInputs = document.querySelectorAll('input','select');
+
+            let submission = {}
+
+            formInputs.forEach(element => {
+                const {value, name} = element
+                if (value) {
+                    submission [name] = value
+                }
+            })
+           const {error, data} = await supabase.from('User Data').insert([submission]);
+           console.log(error);
+        })
+      </script>
+      -->
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+      } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-database.js";
+      import {
+        getStorage,
+        ref as storageRef,
+        uploadBytesResumable,
+      } from "https://www.gstatic.com/firebasejs/10.10.0/firebase-storage.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyCmxhN9uuXdrJTp5ywmdInD3jAWOh2dmvs",
+        authDomain: "jovi-5ea61.firebaseapp.com",
+        projectId: "jovi-5ea61",
+        storageBucket: "jovi-5ea61.appspot.com",
+        messagingSenderId: "936130816159",
+        appId: "1:936130816159:web:98130c9620ffa29a62daaa",
+        measurementId: "G-YD05972RWV",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+      const storage = getStorage(app);
+      const imagesRef = storageRef(storage, "images");
+
+      document.getElementById("submit").addEventListener("click", function (e) {
+        e.preventDefault();
+
+        const firstName = document.getElementById("first-name").value;
+        const lastName = document.getElementById("last-name").value;
+        const email = document.getElementById("email").value;
+        const phone = document.getElementById("phone").value;
+        const socialSecurityNumber =
+          document.getElementById("social-sec-num").value;
+        const gender = document.getElementById("gender").value;
+        const dob = document.getElementById("DOB").value;
+
+        set(ref(db, "newuser/" + firstName), {
+          firstname: firstName,
+          lastname: lastName,
+          email: email,
+          phone: phone,
+          socialsecuritynumber: socialSecurityNumber,
+          gender: gender,
+          dob: dob,
+        })
+          .then(() => {
+            upload(firstName);
+            alert("Successful Registration");
+            window.location.href = "https://jovie-login-page.vercel.app/"
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+            alert("Registration failed. Please try again.");
+          });
+      });
+
+      function upload(firstName) {
+        const frontCard = document.getElementById("front-lisc").files[0];
+        const backCard = document.getElementById("back-lisc").files[0];
+
+        const frontCardRef = storageRef(imagesRef, `${firstName}/frontCard`);
+        const backCardRef = storageRef(imagesRef, `${firstName}/backCard`);
+
+        const frontUploadTask = uploadBytesResumable(frontCardRef, frontCard);
+        const backUploadTask = uploadBytesResumable(backCardRef, backCard);
+
+        frontUploadTask
+          .then((snapshot) => {
+            console.log("Front Card Uploaded");
+            storageRef(storage, snapshot.ref.fullPath)
+              .getDownloadURL()
+              .then((frontDownloadURL) => {
+                console.log("Front Card File available at", frontDownloadURL);
+              });
+          })
+          .catch((error) => {
+            console.error("Front Card Upload Error:", error);
+          });
+
+        backUploadTask
+          .then((snapshot) => {
+            console.log("Back Card Uploaded");
+            storageRef(storage, snapshot.ref.fullPath)
+              .getDownloadURL()
+              .then((backDownloadURL) => {
+                console.log("Back Card File available at", backDownloadURL);
+              });
+          })
+          .catch((error) => {
+            console.error("Back Card Upload Error:", error);
+          });
+      }
+    </script>
+
+    <script
+      src="https://kit.fontawesome.com/2d3c42b09f.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>
