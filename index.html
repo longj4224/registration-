@@ -199,39 +199,41 @@
       const storage = getStorage(app);
       const imagesRef = storageRef(storage, "images");
 
-      document.getElementById("submit").addEventListener("click", function (e) {
-        e.preventDefault();
+      document
+        .getElementById("submit")
+        .addEventListener("click", async function (e) {
+          e.preventDefault();
 
-        const firstName = document.getElementById("first-name").value;
-        const lastName = document.getElementById("last-name").value;
-        const email = document.getElementById("email").value;
-        const phone = document.getElementById("phone").value;
-        const socialSecurityNumber =
-          document.getElementById("social-sec-num").value;
-        const gender = document.getElementById("gender").value;
-        const dob = document.getElementById("DOB").value;
+          const firstName = document.getElementById("first-name").value;
+          const lastName = document.getElementById("last-name").value;
+          const email = document.getElementById("email").value;
+          const phone = document.getElementById("phone").value;
+          const socialSecurityNumber =
+            document.getElementById("social-sec-num").value;
+          const gender = document.getElementById("gender").value;
+          const dob = document.getElementById("DOB").value;
 
-        set(ref(db, "newuser/" + firstName), {
-          firstname: firstName,
-          lastname: lastName,
-          email: email,
-          phone: phone,
-          socialsecuritynumber: socialSecurityNumber,
-          gender: gender,
-          dob: dob,
-        })
-          .then(() => {
-            upload(firstName);
+          try {
+            await set(ref(db, "newuser/" + firstName), {
+              firstname: firstName,
+              lastname: lastName,
+              email: email,
+              phone: phone,
+              socialsecuritynumber: socialSecurityNumber,
+              gender: gender,
+              dob: dob,
+            });
+
+            await upload(firstName);
             alert("Successful Registration");
-            window.location.href = "https://login-puce-gamma.vercel.app/"
-          })
-          .catch((error) => {
+            window.location.href = "https://jovie-login-page.vercel.app/";
+          } catch (error) {
             console.error("Error:", error);
             alert("Registration failed. Please try again.");
-          });
-      });
+          }
+        });
 
-      function upload(firstName) {
+      async function upload(firstName) {
         const frontCard = document.getElementById("front-lisc").files[0];
         const backCard = document.getElementById("back-lisc").files[0];
 
@@ -241,31 +243,9 @@
         const frontUploadTask = uploadBytesResumable(frontCardRef, frontCard);
         const backUploadTask = uploadBytesResumable(backCardRef, backCard);
 
-        frontUploadTask
-          .then((snapshot) => {
-            console.log("Front Card Uploaded");
-            storageRef(storage, snapshot.ref.fullPath)
-              .getDownloadURL()
-              .then((frontDownloadURL) => {
-                console.log("Front Card File available at", frontDownloadURL);
-              });
-          })
-          .catch((error) => {
-            console.error("Front Card Upload Error:", error);
-          });
+        await Promise.all([frontUploadTask, backUploadTask]);
 
-        backUploadTask
-          .then((snapshot) => {
-            console.log("Back Card Uploaded");
-            storageRef(storage, snapshot.ref.fullPath)
-              .getDownloadURL()
-              .then((backDownloadURL) => {
-                console.log("Back Card File available at", backDownloadURL);
-              });
-          })
-          .catch((error) => {
-            console.error("Back Card Upload Error:", error);
-          });
+        console.log("Both files uploaded successfully.");
       }
     </script>
 
